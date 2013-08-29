@@ -26,3 +26,5 @@
      (wrap-json-params)
      (wrap-json-response))))
 
+(defn -main [port]
+  (jetty/run-jetty app {:port (Integer. port) :join? false}))

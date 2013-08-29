@@ -20,13 +20,12 @@
 
 (defn store-doc [document]
   (-> (mc/insert-and-return store-name document)
-               (create-string-id)
-               ))  
+      (create-string-id)
+      ))  
 
-(defn get-docs [filter-value]
-  (->> 
-   (mc/find-maps store-name) 
-   (map create-string-id)
+(defn get-docs [filter-values]
+  (->> (mc/find-maps store-name filter-values) 
+       (map create-string-id)
    )
 )
 
