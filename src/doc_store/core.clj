@@ -8,15 +8,14 @@
   (merge mongo-doc {:id (.toString (:_id mongo-doc))}))
 
 (defn store-doc [document]
-  (let [^MongoOptions opts (mg/mongo-options :threads-allowed-to-block-for-connection-multiplier 300)
-        ^ServerAddress sa  (mg/server-address "127.0.0.1" 27017)]
-    (mg/connect! sa opts)
-    (set-db! (mg/get-db "monger-test"))
-    (let [result   (-> (mc/insert-and-return "documents" document)
-                       (create-string-id)
-                       (dissoc :_id)
-                       )]
-      (mg/disconnect!)
-      result)
+  ( let [uri (get (System/getenv) "MONGODB_URI" "mongodb://127.0.0.1/monger-test")]
+    (mg/connect-via-uri! uri))
+  ;; (set-db! (mg/get-db "monger-test"))
+  (let [result   (-> (mc/insert-and-return "documents" document)
+                     (create-string-id)
+                     (dissoc :_id)
+                     )]
+    (mg/disconnect!)
+    result)
   
-))
+)
