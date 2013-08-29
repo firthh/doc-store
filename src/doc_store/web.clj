@@ -10,20 +10,19 @@
             [doc-store.core :as core])
 )
 
-
 (defroutes app-routes
-  (POST "/" {params :params} (do
-                               (println params)
-                               (json-str (core/store-doc params))))
-  (GET "/:userid" [user-id] {:user-id user-id})
+  (POST "/" {params :params}
+        (json-str (core/store-doc params)))
+  (GET "/:userid" [user-id] 
+       (json-str (core/get-docs {})))
   (route/not-found (json-str {:error "not found"}))
   )
 
 (def app
-  (->
-   (handler/site app-routes)
-   (wrap-json-params)
-   (wrap-json-response)))
+  (do
+    (core/db-connect!)
+    (->
+     (handler/site app-routes)
+     (wrap-json-params)
+     (wrap-json-response))))
 
-(defn -main [port]
-  (jetty/run-jetty app {:port (Integer. port) :join? false}))
