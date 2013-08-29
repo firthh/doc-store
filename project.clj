@@ -6,6 +6,7 @@
                  [org.clojure/data.json "0.2.2"]
                  [http.async.client "0.5.2"]
                  [ring/ring-jetty-adapter "1.1.6"]
+                 [ring/ring-json "0.2.0"]
                  [ring "1.1.8"]]
   :plugins [[lein-ring "0.8.5"]]
   :min-lein-version "2.0.0"
