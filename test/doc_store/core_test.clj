@@ -3,5 +3,12 @@
   (:require [doc-store.core :refer :all]))
 
 
-(fact "can connect to mongo"
-      (store-doc {:test "data"}) => (contains {:test "data"}))
+(with-state-changes [(before :facts (db-connect!))
+                     (after :facts (db-disconnect!))]
+  (facts "mongo"
+         (fact "can add data to mongo"
+               (store-doc {:test "data"}) => (contains {:test "data"}))
+
+         (fact "can get data from mongo"
+               (> (count (get-docs {})) 0) => true)
+               ))
