@@ -18,13 +18,17 @@
   (route/not-found (json-str {:error "not found"}))
   )
 
+(defn init []
+  (core/db-connect!))
+
+(defn destroy []
+  (core/db-disconnect!))
+
 (def app
-  (do
-    (core/db-connect!)
-    (->
-     (handler/site app-routes)
-     (wrap-json-params)
-     (wrap-json-response))))
+  (->
+   (handler/site app-routes)
+   (wrap-json-params)
+   (wrap-json-response)))
 
 (defn -main [port]
   (jetty/run-jetty app {:port (Integer. port) :join? false}))

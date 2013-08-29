@@ -12,7 +12,9 @@
   :plugins [[lein-ring "0.8.5"]]
   :min-lein-version "2.0.0"
   :uberjar-name "doc-store.jar"
-  :ring {:handler doc-store.web/app}
+  :ring {:handler doc-store.web/app
+         :init    doc-store.web/init
+         :destroy doc-store.web/destroy}
   :profiles {:dev {
                    :plugins [[lein-midje "3.0.0"]
                              [lein-ancient "0.4.0"]]
