@@ -1,1 +1,1 @@
-web: lein run -m doc-store/web $PORT
+web: lein run -m doc-store.web $PORT
