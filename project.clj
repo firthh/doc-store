@@ -12,7 +12,6 @@
   :plugins [[lein-ring "0.8.5"]]
   :min-lein-version "2.0.0"
   :uberjar-name "doc-store.jar"
-  :main doc-store/web
   :ring {:handler doc-store.web/app
          :init    doc-store.web/init
          :destroy doc-store.web/destroy}
