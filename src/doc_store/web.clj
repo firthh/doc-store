@@ -6,14 +6,15 @@
             [compojure.route :as route]
             [clojure.data.json :refer (read-json json-str)]
             [ring.util.response :as resp]
-            [ring.adapter.jetty :as jetty])
+            [ring.adapter.jetty :as jetty]
+            [doc-store.core :as core])
 )
 
 
 (defroutes app-routes
   (POST "/" {params :params} (do
                                (println params)
-                               (json-str {:stuff params})))
+                               (json-str (core/store-doc params))))
   (GET "/:userid" [user-id] {:user-id user-id})
   (route/not-found (json-str {:error "not found"}))
   )
