@@ -8,7 +8,7 @@
             [ring.util.response :as resp]
             [ring.adapter.jetty :as jetty]
             [doc-store.core :as core])
-)
+  (:gen-class))
 
 (defroutes app-routes
   (POST "/" {params :params}
@@ -31,6 +31,8 @@
    (wrap-json-response)))
 
 
-(defn -main [port]
-  (init)
-  (jetty/run-jetty app {:port (Integer. port) :join? false}))
+(defn -main
+  ([] (-main 80))
+  ([port]
+      (init)
+      (jetty/run-jetty app {:port (Integer. port) :join? false})))

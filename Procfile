@@ -1,1 +1,1 @@
-web: lein run -m doc-store $PORT
+web: java -jar target/doc-store.jar $PORT

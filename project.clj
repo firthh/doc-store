@@ -11,6 +11,7 @@
                  [com.novemberain/monger "1.5.0"]]
   :plugins [[lein-ring "0.8.5"]]
   :min-lein-version "2.0.0"
+  :main doc-store.web
   :uberjar-name "doc-store.jar"
   :ring {:handler doc-store.web/app
          :init    doc-store.web/init
