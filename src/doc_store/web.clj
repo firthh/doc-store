@@ -13,7 +13,7 @@
 (defroutes app-routes
   (POST "/" {params :params}
         (json-str (core/store-doc params)))
-  (GET "/:userid" [user-id] 
+  (GET "/" [] 
        (json-str (core/get-docs {})))
   (route/not-found (json-str {:error "not found"}))
   )
