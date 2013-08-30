@@ -18,14 +18,18 @@
 (defn db-disconnect! []
   (mg/disconnect!))
 
-(defn store-doc [document]
-  (-> (mc/insert-and-return store-name document)
-      (create-string-id)
-      ))  
+(defn store-doc 
+  ([document] (store-doc document store-name))
+  ([document store]
+      (-> (mc/insert-and-return store document)
+          (create-string-id)
+          )))  
 
-(defn get-docs [filter-values]
-  (->> (mc/find-maps store-name filter-values) 
-       (map create-string-id)
-   )
+(defn get-docs
+  ([filter-values] (get-docs filter-values store-name))
+  ([filter-values store]
+      (->> (mc/find-maps store filter-values) 
+           (map create-string-id)
+           ))
 )
 

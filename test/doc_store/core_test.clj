@@ -10,5 +10,5 @@
                (store-doc {:test "data"}) => (contains {:test "data"}))
 
          (fact "can get data from mongo"
-               (> (count (get-docs {})) 0) => true)
+               (> (count (get-docs {:test "data"})) 0) => true)
                ))

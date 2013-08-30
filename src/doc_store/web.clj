@@ -13,10 +13,13 @@
 (defroutes app-routes
   (POST "/" {params :params}
         (json-str (core/store-doc params)))
+  (POST "/merchant/:merchant" {params :params {merchant :merchant} :merchant-id}
+        (json-str (core/store-doc params (str "merchant-" (:merchant params)))))
   (GET "/" [] 
        (json-str (core/get-docs {})))
-  (route/not-found (json-str {:error "not found"}))
-  )
+  (GET "/merchant/:merchant" [merchant]
+       (json-str (core/get-docs {} (str "merchant-" merchant))))
+  (route/not-found (json-str {:error "not found"})))
 
 (defn init []
   (core/db-connect!))
